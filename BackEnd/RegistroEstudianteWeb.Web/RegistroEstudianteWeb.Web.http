@@ -1,0 +1,6 @@
+@RegistroEstudianteWeb.Web_HostAddress = http://localhost:5205
+
+GET {{RegistroEstudianteWeb.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
