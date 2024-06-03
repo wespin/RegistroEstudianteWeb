@@ -20,6 +20,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { LayoutModule } from '@angular/cdk/layout';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -44,6 +46,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatTooltipModule,
     MatAutocompleteModule,
     LayoutModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MaterialModule { }
