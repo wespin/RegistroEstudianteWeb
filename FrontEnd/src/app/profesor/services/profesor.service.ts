@@ -18,12 +18,12 @@ export class ProfesorService {
     return this.http.get<Profesor[]>(`${this.baseUrl}`);
   }
 
-  crear(request: Profesor): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.baseUrl}`, request);
+  crear(request: Profesor): Observable<Profesor[]> {
+    return this.http.post<Profesor[]>(`${this.baseUrl}`, request);
   }
 
-  editar(request: Profesor): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}`, request);
+  editar(request: Profesor): Observable<Profesor[]> {
+    return this.http.put<Profesor[]>(`${this.baseUrl}${request.profesorId}`,request);
   }  
 
   eliminar(id: number): Observable<ApiResponse> {

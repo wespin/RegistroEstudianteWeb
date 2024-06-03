@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ProfesorService } from '../../services/profesor.service';
 import { SharedService } from '../../../shared/shared.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ModalProfesorComponent } from '../../modals/modal-profesor/modal-profesor.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -30,17 +32,60 @@ export class ListadoProfesorComponent implements OnInit, AfterViewInit {
   ) {}
 
   nuevoProfesor() {
-    /*this.dialog
-      .open(ModalEspecialidadComponent, { disableClose: true, width: '400px' })
+    this.dialog
+      .open(ModalProfesorComponent, { disableClose: true, width: '400px' })
       .afterClosed()
       .subscribe((resultado) => {
-        if (resultado === 'true') this.obtenerEspecialidades();
-      });*/
+        if (resultado === 'true') this.obtenerProfesores();
+      });
   }
 
   editarProfesor(profesor: Profesor) {
+    this.dialog
+      .open(ModalProfesorComponent, {
+        disableClose: true,
+        width: '400px',
+        data: profesor,
+      })
+      .afterClosed()
+      .subscribe((resultado) => {
+        if (resultado === 'true') this.obtenerProfesores();
+      });
+
   }
   removerProfesor(profesor: Profesor) {
+    Swal.fire({
+      title: 'Desea Eliminar el Profesor?',
+      text: profesor.nombre,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'No',
+    }).then((resultado) => {
+      if (resultado.isConfirmed) {
+        this._profesorServicio.eliminar(profesor.profesorId).subscribe({
+          next: (data) => {
+            if (data.isExitoso) {
+              this._sharedService.mostrarAlerta(
+                'El profesor fue eliminado',
+                'Completo'
+              );
+              this.obtenerProfesores();
+            } else {
+              this._sharedService.mostrarAlerta(
+                'No se pudo eliminar el profesor',
+                'Error!'
+              );
+            }
+          },
+          error: (e) => {
+             this._sharedService.mostrarAlerta(e.error.mensaje, 'Error!');
+          },
+        });
+      }
+    });
   }
   
   

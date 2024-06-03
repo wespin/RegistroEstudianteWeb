@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RegistroEstudianteWeb.Core.Interfaces.Services;
 using RegistroEstudianteWeb.Web.Models;
 using RegistroEstudianteWeb.Core.Entities;
+using RegistroEstudianteWeb.Api.Models;
+using System.Net;
 
 namespace RegistroEstudianteWeb.Web.Controllers
 {
@@ -12,18 +14,19 @@ namespace RegistroEstudianteWeb.Web.Controllers
     {
         private readonly IProfesorService _profesorService;
         private readonly IMapper _mapper;
+        private ApiResponse _response;
 
         public ProfesorController(IProfesorService profesorService, IMapper mapper)
         {
             _profesorService = profesorService;
             _mapper = mapper;
+            _response = new();
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProfesorModel>>> Get()
         {
-            var profesores =
-                        await _profesorService.GetAll();
+            var profesores = await _profesorService.GetAll();
 
             var mappedProfesores =
                         _mapper.Map<IEnumerable<Profesor>, IEnumerable<ProfesorModel>>(profesores);
@@ -83,12 +86,18 @@ namespace RegistroEstudianteWeb.Web.Controllers
             try
             {
                  await _profesorService.Delete(id);
-
-                return Ok();
+                
+                _response.IsExitoso = true;
+                _response.StatusCode = HttpStatusCode.NoContent;
+                return Ok(_response);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _response.IsExitoso = false;
+                _response.Mensaje = ex.Message;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+
+                return BadRequest(_response);
             }
         }
     }
