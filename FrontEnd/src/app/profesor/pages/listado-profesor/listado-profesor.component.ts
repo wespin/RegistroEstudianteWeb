@@ -7,6 +7,7 @@ import { SharedService } from '../../../shared/shared.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalProfesorComponent } from '../../modals/modal-profesor/modal-profesor.component';
 import Swal from 'sweetalert2';
+import { Curso } from '../../interfaces/curso';
 
 
 @Component({
@@ -19,11 +20,14 @@ export class ListadoProfesorComponent implements OnInit, AfterViewInit {
     'apellido',
     'nombre',
     'fechaContratacion',
+    'materias',
     'acciones',
   ];
   //dataInicial: Profesor[] = [];
   dataSource = new MatTableDataSource<Profesor>();//new MatTableDataSource(this.dataInicial);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  dataProfesorCursos: Curso[] = [];
 
   constructor(
     private _profesorServicio: ProfesorService,
@@ -87,14 +91,15 @@ export class ListadoProfesorComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  
-  
+    
   obtenerProfesores() {
     this._profesorServicio.lista().subscribe({
       next: (data) => {
         if (data) {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
+
+         // this.dataProfesorCursos = data.cursos;
         } else
           this._sharedService.mostrarAlerta(
             'No se encontraron datos',

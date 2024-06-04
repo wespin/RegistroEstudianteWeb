@@ -1,4 +1,5 @@
-﻿using RegistroEstudianteWeb.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using RegistroEstudianteWeb.Core.Entities;
 using RegistroEstudianteWeb.Core.Interfaces.Repositories;
 using RegistroEstudianteWeb.Infrastructure.Data;
 using System;
@@ -13,7 +14,11 @@ namespace RegistroEstudianteWeb.Infrastructure.Repositories
     {
         public ProfesorRepository(AppDbContext context) : base(context)
         {
+        }
 
+        public async Task<IEnumerable<Profesor>> GetAllAsync()
+        {
+            return await dbSet.Include(x => x.Cursos).ToListAsync();
         }
     }
 }

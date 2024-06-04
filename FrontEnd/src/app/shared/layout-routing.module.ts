@@ -5,6 +5,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListadoProfesorComponent } from '../profesor/pages/listado-profesor/listado-profesor.component';
 import { } from '../profesor/profesor.module';
+import { ListadoEstudianteComponent } from '../estudiante/pages/listado-estudiante/listado-estudiante.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full',  },
       { path: 'profesores', component: ListadoProfesorComponent, pathMatch: 'full',  },
+      { path: 'estudiantes', component: ListadoEstudianteComponent, pathMatch: 'full',  },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ],
   },

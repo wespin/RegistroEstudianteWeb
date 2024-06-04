@@ -1,4 +1,5 @@
-﻿using RegistroEstudianteWeb.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using RegistroEstudianteWeb.Core.Entities;
 using RegistroEstudianteWeb.Core.Interfaces.Repositories;
 using RegistroEstudianteWeb.Infrastructure.Data;
 using System;
@@ -14,6 +15,11 @@ namespace RegistroEstudianteWeb.Infrastructure.Repositories
         public EstudianteRepository(AppDbContext context) : base(context)
         {
 
+        }
+
+        public async Task<IEnumerable<Estudiante>> GetAllAsync()
+        {
+            return await dbSet.Include(x => x.Registros).ToListAsync();
         }
     }
 }

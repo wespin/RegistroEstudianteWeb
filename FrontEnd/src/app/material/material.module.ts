@@ -17,6 +17,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule} from '@angular/material/checkbox'
+import { MatChipsModule} from '@angular/material/chips';
+import { MatFormFieldModule} from '@angular/material/form-field';
 
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -45,7 +48,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatSnackBarModule,
     MatTooltipModule,
     MatAutocompleteModule,
-    LayoutModule
+    LayoutModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatFormFieldModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
