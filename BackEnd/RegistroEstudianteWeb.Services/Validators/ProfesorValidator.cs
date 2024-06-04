@@ -16,11 +16,6 @@ namespace RegistroEstudianteWeb.Services.Validators
             RuleFor(x => x.Nombre)
                 .NotEmpty()
                 .MaximumLength(50);
-
-            //RuleFor(x => x.Apellido)
-            //    .NotEmpty()
-            //    .WithMessage("Classroom MUST have a SchoolId");
-
         }
     }
 }
