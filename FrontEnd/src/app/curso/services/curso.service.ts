@@ -18,4 +18,7 @@ export class CursoService {
     return this.http.get<Curso[]>(`${this.baseUrl}`);
   }
 
+  listaId(id: number): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.baseUrl}${id}`);
+  }   
 }

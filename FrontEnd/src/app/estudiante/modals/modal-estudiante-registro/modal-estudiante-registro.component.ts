@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EstudianteService } from '../../services/estudiante.service';
 import { SharedService } from '../../../shared/shared.service';
 import { Estudiante } from '../../interfaces/estudiante';
+import { Curso } from '../../../curso/interfaces/curso';
+import { CursoService } from '../../../curso/services/curso.service';
 
 @Component({
   selector: 'app-modal-estudiante-registro',
@@ -14,19 +16,31 @@ export class ModalEstudianteRegistroComponent  implements OnInit{
   formEstudiante: FormGroup;
   titulo: string = "Agregar";
   nombreBoton: string = "Guardar";
+  cursos: Curso[];
 
   constructor(private modal: MatDialogRef<ModalEstudianteRegistroComponent>,
     @Inject(MAT_DIALOG_DATA) 
     public datosEstudiante: Estudiante,
     private fb: FormBuilder,
     private _estudianteServicio: EstudianteService,
-    private _sharedService: SharedService)
+    private _sharedService: SharedService,
+    private _cursoServicio: CursoService)
   {
         this.formEstudiante = this.fb.group({
           apellido: ['', Validators.required],
-          nombre: ['',Validators.required]
+          nombre: ['',Validators.required],
+          cursos: ['', Validators.required]          
       });
-  }
+      this.getCursos();
+    }
+  
+    getCursos() {
+       this._cursoServicio.lista().subscribe({
+        next: response => this.cursos = response,
+        error: error => console.log(error),
+        complete: () => console.log('solicitud Curso completa desde modal de profesores')
+      })
+    }
 
   ngOnInit(): void {
     if(this.datosEstudiante !=null)
@@ -36,6 +50,8 @@ export class ModalEstudianteRegistroComponent  implements OnInit{
           nombre: this.datosEstudiante.nombre
         })
       }
+
+
   }
 
   registrarEstudianteCurso(){
@@ -43,8 +59,17 @@ export class ModalEstudianteRegistroComponent  implements OnInit{
       estudianteId: this.datosEstudiante == null ? 0 : this.datosEstudiante.estudianteId,
       apellido: this.formEstudiante.value.apellido,
       nombre: this.formEstudiante.value.nombre,
-
+      registros: []
     }
+
+    const selectedCursos = this.cursos.filter(curso => curso.seleccionado);
+    console.log('Number of selected cursos:', selectedCursos.length);
+  
+    if (selectedCursos.length > 3) {
+      console.log('You can only select up to 2 cursos.');
+      this._sharedService.mostrarAlerta("Un Estudiante solo puede tener hasta 3 materias", 'Informativo!');
+      return;
+    }     
 
     if(this.datosEstudiante != null)
     {

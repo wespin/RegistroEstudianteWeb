@@ -10,7 +10,7 @@ import { SharedService } from '../shared.service';
 })
 export class LayoutComponent implements OnInit{
 
-  username: string = '<_></_>';
+  username: string = 'Admin';
  
   constructor(private router: Router, private sharedService: SharedService)
   {

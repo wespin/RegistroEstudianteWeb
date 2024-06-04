@@ -9,6 +9,8 @@ import { ModalEstudianteComponent } from '../../modals/modal-estudiante/modal-es
 import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
 import { ModalEstudianteRegistroComponent } from '../../modals/modal-estudiante-registro/modal-estudiante-registro.component';
+import { Curso } from '../../../curso/interfaces/curso';
+import { CursoService } from '../../../curso/services/curso.service';
 
 @Component({
   selector: 'app-listado-estudiante',
@@ -19,8 +21,11 @@ export class ListadoEstudianteComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'apellido',
     'nombre',
+    'materias_inscritas',
     'acciones',
   ];
+
+  listaCursos: Curso[];
 
   dataSource = new MatTableDataSource<Estudiante>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -28,8 +33,9 @@ export class ListadoEstudianteComponent implements OnInit, AfterViewInit {
   constructor(
     private _estudianteServicio: EstudianteService,
     private _sharedService: SharedService,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private _cursoService: CursoService
+  ) { this.getListaCursos();}
 
   ngOnInit(): void {
     this.obtenerEstudiantes();
@@ -38,14 +44,25 @@ export class ListadoEstudianteComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  getListaCursos() {
+    this._cursoService.lista().subscribe({
+     next: response => this.listaCursos = response,
+     error: error => console.log(error),
+     complete: () => console.log('solicitud Curso completa desde modal de profesores')
+   })
+ }
+
+  getCurso(_cursoId: number) {
+    const cursos = this.listaCursos.filter(e => e.cursoId === _cursoId);
+    return cursos ? cursos : [];
+  }
+
   obtenerEstudiantes() {
     this._estudianteServicio.lista().subscribe({
       next: (data) => {
         if (data) {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
-
-
         } else
           this._sharedService.mostrarAlerta(
             'No se encontraron datos',
@@ -119,7 +136,7 @@ export class ListadoEstudianteComponent implements OnInit, AfterViewInit {
     this.dialog
       .open(ModalEstudianteRegistroComponent, { 
         disableClose: true, 
-        width: '400px',
+        width: '600px',
         data: estudiante 
       })
       .afterClosed()
