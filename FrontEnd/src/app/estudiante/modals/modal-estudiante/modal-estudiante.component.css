@@ -1,0 +1,15 @@
+.example-h2 {
+    margin: 20px;
+  }
+  
+  .example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+    margin-top: 25px;
+  }
+  
+  .example-margin {
+    margin: 0 10px;
+  }

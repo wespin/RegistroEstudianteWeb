@@ -6,8 +6,6 @@ import { ProfesorService } from '../../services/profesor.service';
 import { SharedService } from '../../../shared/shared.service';
 import { Curso } from '../../../curso/interfaces/curso';
 import { CursoService } from '../../../curso/services/curso.service';
-//import { Curso } from '../../interfaces/curso';
-
 
 @Component({
   selector: 'app-modal-profesor',
@@ -80,13 +78,11 @@ export class ModalProfesorComponent implements OnInit{
     const selectedCursos = this.cursos.filter(curso => curso.seleccionado);
     console.log('Number of selected cursos:', selectedCursos.length);
   
-    if (selectedCursos.length > 3) {
-      console.log('You can only select up to 3 cursos.');
-      this._sharedServicio.mostrarAlerta("Un Profesor solo puede tener hasta 3 materias", 'Informativo!');
+    if (selectedCursos.length > 2) {
+      console.log('You can only select up to 2 cursos.');
+      this._sharedServicio.mostrarAlerta("Un Profesor solo puede tener hasta 2 materias", 'Informativo!');
       return;
     }    
-
-
 
     if(this.datosProfesor == null)
     {

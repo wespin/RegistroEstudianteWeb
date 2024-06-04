@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListadoProfesorComponent } from '../profesor/pages/listado-profesor/listado-profesor.component';
 import { } from '../profesor/profesor.module';
 import { ListadoEstudianteComponent } from '../estudiante/pages/listado-estudiante/listado-estudiante.component';
-
+import { } from '../estudiante/estudiante.module';
 
 const routes: Routes = [
   {

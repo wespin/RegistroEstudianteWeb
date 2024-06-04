@@ -1,4 +1,3 @@
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { Curso } from './curso';
 export interface Profesor {
     profesorId: number;

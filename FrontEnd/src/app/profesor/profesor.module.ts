@@ -6,8 +6,6 @@ import { ProfesorService } from './services/profesor.service';
 import { ListadoProfesorComponent } from './pages/listado-profesor/listado-profesor.component';
 import { ModalProfesorComponent } from './modals/modal-profesor/modal-profesor.component';
 
-
-
 @NgModule({
   declarations: [ListadoProfesorComponent, ModalProfesorComponent],
   imports: [CommonModule, SharedModule, MaterialModule],
