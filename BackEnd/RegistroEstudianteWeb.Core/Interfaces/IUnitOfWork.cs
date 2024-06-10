@@ -13,6 +13,7 @@ namespace RegistroEstudianteWeb.Core.Interfaces
         IEstudianteRepository EstudianteRepository { get; }
         IProfesorRepository ProfesorRepository { get; }
         IRegistroRepository RegistroRepository { get; }
+        IUsuarioRepository UsuarioRepository { get; }
 
         Task SaveChanges();
     }

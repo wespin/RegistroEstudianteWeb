@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RegistroEstudianteWeb.Api.Models;
 using RegistroEstudianteWeb.Core.Entities;
 using RegistroEstudianteWeb.Web.Models;
 
@@ -31,6 +32,12 @@ namespace RegistroEstudianteWeb.Web.Mappers
 
             CreateMap<RegistroModel, Registro>();
             CreateMap<RegistroSaveModel, Registro>();
+
+            CreateMap<Usuario, UsuarioModel>().ReverseMap();
+            CreateMap<Usuario, UsuarioSaveModel>();
+
+            CreateMap<UsuarioModel, Usuario>();
+            CreateMap<UsuarioSaveModel, Usuario>();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace RegistroEstudianteWeb.Infrastructure.Data
         private IEstudianteRepository _estudianteRepository;
         private IProfesorRepository _profesorRepository;
         private IRegistroRepository _registroRepository;
+        private IUsuarioRepository _usuarioRepository;
 
         public UnitOfWork(AppDbContext context)
         {
@@ -29,6 +30,8 @@ namespace RegistroEstudianteWeb.Infrastructure.Data
         public IProfesorRepository ProfesorRepository => _profesorRepository ??= new ProfesorRepository(_context);
 
         public IRegistroRepository RegistroRepository => _registroRepository ??= new RegistroRepository(_context);
+
+        public IUsuarioRepository UsuarioRepository => _usuarioRepository ??= new UsuarioRepository(_context);
 
         public async Task SaveChanges()
         {

@@ -7,38 +7,18 @@ using RegistroEstudianteWeb.Core.Interfaces.Services;
 using RegistroEstudianteWeb.Services;
 using Microsoft.AspNetCore.Hosting;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.OpenApi.Models;
+using RegistroEstudianteWeb.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RegistroEstudianteWebConnection"),
-                                               b => b.MigrationsAssembly("RegistroEstudianteWeb.Infrastructure")
-    );
-});
-
-builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-
-builder.Services.AddScoped(typeof(IProfesorRepository), typeof(ProfesorRepository));
-builder.Services.AddScoped(typeof(IProfesorService), typeof(ProfesorService));
-
-builder.Services.AddScoped(typeof(IEstudianteRepository), typeof(EstudianteRepository));
-builder.Services.AddScoped(typeof(IEstudianteService), typeof(EstudianteService));
-
-builder.Services.AddScoped(typeof(ICursoRepository), typeof(CursoRepository));
-builder.Services.AddScoped(typeof(ICursoService), typeof(CursoService));
-
-builder.Services.AddScoped(typeof(IRegistroRepository), typeof(RegistroRepository));
-builder.Services.AddScoped(typeof(IRegistroService), typeof(RegistroService));
-
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddServicesApplication(builder.Configuration);
+builder.Services.AddServiceIdentity(builder.Configuration);
 
-builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -55,6 +35,7 @@ app.UseCors(builder => builder.AllowAnyOrigin()
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

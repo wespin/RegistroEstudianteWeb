@@ -14,6 +14,7 @@ namespace RegistroEstudianteWeb.Infrastructure.Data
         public DbSet<Curso> Curso { get; set; }
         public DbSet<Estudiante> Estudiante { get; set; }
         public DbSet<Registro> Registro { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
