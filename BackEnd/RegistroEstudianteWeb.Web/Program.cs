@@ -1,17 +1,6 @@
-using RegistroEstudianteWeb.Core.Interfaces.Repositories;
-using RegistroEstudianteWeb.Core.Interfaces;
-using RegistroEstudianteWeb.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using RegistroEstudianteWeb.Infrastructure.Repositories;
-using RegistroEstudianteWeb.Core.Interfaces.Services;
-using RegistroEstudianteWeb.Services;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.OpenApi.Models;
+
 using RegistroEstudianteWeb.Api.Extensions;
+using RegistroEstudianteWeb.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +12,8 @@ builder.Services.AddServiceIdentity(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
