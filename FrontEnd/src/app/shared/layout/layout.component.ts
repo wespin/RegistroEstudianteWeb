@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SharedService } from '../shared.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-layout',
@@ -12,7 +13,7 @@ export class LayoutComponent implements OnInit{
 
   username: string = 'Admin';
  
-  constructor(private router: Router, private sharedService: SharedService)
+  constructor(private router: Router, private sharedService: SharedService, private cookieService: CookieService)
   {
   }
  
@@ -20,16 +21,16 @@ export class LayoutComponent implements OnInit{
      const usuarioSesion = this.sharedService.obtenerSesion();
      if(usuarioSesion!=null)
      {
-       this.username = usuarioSesion.nombreUsuario;
+       this.username = usuarioSesion;
      }
    }
  
     cerrarSesion() {
      this.sharedService.eliminarSesion();
  
-      //this.cookieService.delete('Authorization','/');
+     this.cookieService.delete('Authorization','/');
 
-      this.router.navigate(['login']);
+     this.router.navigate(['login']);
     }
  
  

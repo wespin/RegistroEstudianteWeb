@@ -73,21 +73,21 @@ export class ModalEstudianteRegistroComponent  implements OnInit{
 
     if(this.datosEstudiante != null)
     {
-       // Crear nueva Profesor
-       this._estudianteServicio.crear(estudiante).subscribe({
-         next: (data) => {
-           if(data)
-           {
-            this._sharedService.mostrarAlerta('El Registro de Curso del Estudiante ha sido grabado con Exito!', 'Completo');
-            this.modal.close("true");
-           }
-           else
-             this._sharedService.mostrarAlerta('No se pudo crear la registro', 'Error!');
-         },
-         error: (e) => {
-          this._sharedService.mostrarAlerta(e.error.mensaje, 'Error!');
-         }
-       })
+       // Crear nueva Registro de materias de estudiante
+      //  this._estudianteServicio.crear(estudiante).subscribe({
+      //    next: (data) => {
+      //      if(data)
+      //      {
+      //       this._sharedService.mostrarAlerta('El Registro de Curso del Estudiante ha sido grabado con Exito!', 'Completo');
+      //       this.modal.close("true");
+      //      }
+      //      else
+      //        this._sharedService.mostrarAlerta('No se pudo crear la registro', 'Error!');
+      //    },
+      //    error: (e) => {
+      //     this._sharedService.mostrarAlerta(e.error.mensaje, 'Error!');
+      //    }
+      //  })
     }
   }
 }

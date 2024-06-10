@@ -13,8 +13,6 @@ namespace RegistroEstudianteWeb.Api.Extensions
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-
-
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(congfig["TokenKey"])),
                     ValidateIssuer = false,
