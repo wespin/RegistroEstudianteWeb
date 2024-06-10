@@ -6,7 +6,7 @@ import { LayoutComponent } from './shared/layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: LoginComponent,
     pathMatch: 'full'
   },
   {

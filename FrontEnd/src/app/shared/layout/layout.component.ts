@@ -20,15 +20,15 @@ export class LayoutComponent implements OnInit{
      const usuarioSesion = this.sharedService.obtenerSesion();
      if(usuarioSesion!=null)
      {
-       this.username = usuarioSesion;
+       this.username = usuarioSesion.nombreUsuario;
      }
    }
  
     cerrarSesion() {
-     /* this.sharedService.eliminarSesion();
+     this.sharedService.eliminarSesion();
  
-      this.cookieService.delete('Authorization','/');
- */
+      //this.cookieService.delete('Authorization','/');
+
       this.router.navigate(['login']);
     }
  

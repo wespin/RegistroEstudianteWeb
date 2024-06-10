@@ -28,7 +28,7 @@ export class LoginComponent {
   iniciarSesion(){
     this.mostrarLoading = true;
     const request: Login = {
-      username: this.formLogin.value.username,
+      nombreUsuario: this.formLogin.value.username,
       password: this.formLogin.value.password,
     };
     this.usuarioServicio.iniciarSesion(request).subscribe({
@@ -40,7 +40,7 @@ export class LoginComponent {
         this.mostrarLoading = false;
       },
       error: (error) => {
-        this.sharedService.mostrarAlerta(error.error(), "Error!");
+        this.sharedService.mostrarAlerta(error.error, "Error!");
         this.mostrarLoading = false;        
       }
     });
