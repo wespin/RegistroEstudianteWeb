@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RegistroEstudianteWeb.Api.Extensions
 {
-    public static class ServiceIdentityExtension
+    public static class ServicesIdentityExtension
     {
         public static IServiceCollection AddServiceIdentity(this IServiceCollection services, IConfiguration congfig)
         {

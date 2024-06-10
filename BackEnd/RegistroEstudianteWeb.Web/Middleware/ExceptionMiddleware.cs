@@ -31,7 +31,7 @@ namespace RegistroEstudianteWeb.Api.Middleware
 
                 var response = _env.IsDevelopment()
                     ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
-                    : new ApiException(context.Response.StatusCode, "Error del servidor", ex.Message);
+                    : new ApiErrorResponse(context.Response.StatusCode);
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var json = JsonSerializer.Serialize(response, options);

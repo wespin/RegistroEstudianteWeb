@@ -7,6 +7,8 @@ using RegistroEstudianteWeb.Infrastructure.Data;
 using RegistroEstudianteWeb.Infrastructure.Repositories;
 using RegistroEstudianteWeb.Services;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using RegistroEstudianteWeb.Api.Errors;
 
 namespace RegistroEstudianteWeb.Api.Extensions
 {
@@ -77,6 +79,25 @@ namespace RegistroEstudianteWeb.Api.Extensions
 
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    var errors = actionContext.ModelState
+                                    .Where(e => e.Value.Errors.Count > 0)
+                                    .SelectMany(x => x.Value.Errors)
+                                    .Select(y => y.ErrorMessage)
+                                    .ToArray();
+
+                    var errorResponse = new ApiValidationErrorResponse
+                    {                        
+                        Errors = errors
+                    };
+
+                    return new BadRequestObjectResult(errorResponse);
+                };
+            });
 
             return services;
         }
