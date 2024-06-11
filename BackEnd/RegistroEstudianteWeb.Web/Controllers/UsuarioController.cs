@@ -71,8 +71,8 @@ namespace RegistroEstudianteWeb.Api.Controllers
                     PasswordSalt = hmac.Key
                 };
 
-                //var creadoUsuario =
-                //    await _UsuarioService.Create(usuario);
+                var creadoUsuario =
+                    await _UsuarioService.Create(usuario);
 
                 //return Ok(_mapper.Map<Usuario, UsuarioModel>(creadoUsuario));
                 return Ok(new UsuarioTokenModel
